@@ -13,3 +13,46 @@ Output: 1
 Explanation: The answer is "b", with the length of 1.
 """
 
+
+class Solution:
+
+    def new(self, s: str) -> int:
+        result = 0
+        D = dict()
+        maxResult = 0
+        for i in range(0, len(s)):
+            if s[i] in D:
+                maxResult = max(D[s[i]], maxResult)
+
+            result = max(result, i - maxResult + 1)
+            D[s[i]] = i + 1
+
+        return result
+
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        start, end = 0, 0
+        record = {}
+        max_length = 1
+        cur_length = 1
+        while len(s) > end >= start:
+            if start == end:
+                record[s[start]] = start
+                end += 1
+            else:
+                if s[end] not in record:
+                    record[s[end]] = end
+                    end += 1
+                    cur_length += 1
+                    if cur_length > max_length:
+                        max_length = cur_length
+                # end指向的位置的值之前访问过
+                else:
+                    start = record[s[end]] + 1
+                    end = start
+                    record = {}
+                    cur_length = 1
+        return max_length
+
+
+s = Solution()
+print(s.lengthOfLongestSubstring('abcabcbb'))
