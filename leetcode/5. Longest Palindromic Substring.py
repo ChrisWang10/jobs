@@ -32,6 +32,8 @@ class Solution:
         result = ''.join(result.split('#'))
         return result
 
+    def longestPalindrome_new(self, s: str) -> str:
+
 
 s = Solution()
 s.longestPalindrome('abcd')
