@@ -17,8 +17,11 @@ class Solution:
         i, j = 0, len(nums) - 1
         while i < j:
             if nums[i] + nums[j] == target:
-                if tuple(path+[nums[i], nums[j]]) not in res:
-                    res.append(tuple(path + [nums[i], nums[j]]))
+                res.append(path + [nums[i], nums[j]])
+                while i < j and nums[i] == nums[i + 1]:
+                    i += 1
+                while i < j and nums[j] == nums[j - 1]:
+                    j -= 1
                 i += 1
                 j -= 1
             elif nums[i] + nums[j] < target:
@@ -35,14 +38,19 @@ class Solution:
             self.two_sum(nums, target, res, path)
         else:
             for i, v in enumerate(nums):
-                self.n_sum(nums[i + 1:], n - 1, target - nums[i], res, path + [nums[i]])
+                if v > 0:
+                    break
+                elif i > 0 and nums[i] == nums[i - 1]:
+                    continue
+                else:
+                    self.n_sum(nums[i + 1:], n - 1, target - nums[i], res, path + [nums[i]])
 
     def threeSum(self, nums):
         result = []
         nums.sort()
         self.n_sum(nums, 3, 0, result, [])
-        return [list(item) for item in list(set(result))]
-        # return result
+        return result
+
 
 so = Solution()
 print(so.threeSum([0, 0, 0, 0]))
