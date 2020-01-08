@@ -31,6 +31,7 @@ class Solution:
             path = path_copy
 
     def n_sum(self, nums, n, target, res, path):
+        print(n, path, target)
         if n > len(nums):
             res = []
 
@@ -38,19 +39,22 @@ class Solution:
             self.two_sum(nums, target, res, path)
         else:
             for i, v in enumerate(nums):
-                if v > 0:
-                    break
-                elif i > 0 and nums[i] == nums[i - 1]:
+                if i > 0 and nums[i] == nums[i - 1]:
                     continue
                 else:
                     self.n_sum(nums[i + 1:], n - 1, target - nums[i], res, path + [nums[i]])
 
-    def threeSum(self, nums):
+    def FourSum(self, nums, target):
         result = []
         nums.sort()
-        self.n_sum(nums, 3, 0, result, [])
+        print(nums)
+        print('---------------------')
+        self.n_sum(nums, 4, target, result, [])
         return result
 
 
 so = Solution()
-print(so.threeSum([0, 0, 0, 0]))
+print(so.FourSum([1, -2, -5, -4, -3, 3, 3, 5], -11))
+print('***********')
+print(
+[[-5,-4,-3,1]])
