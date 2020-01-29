@@ -13,6 +13,23 @@ For example, given n = 3, a solution set is:
 """
 
 
+def dfs(to_close, to_open, res, path, n):
+    if to_close == 0 and to_open == 0:
+        print(path)
+        res.append(path)
+    else:
+        if 0 < to_open <= n:
+            dfs(to_close + 1, to_open - 1, res, path + '(', n)
+        if 0 < to_close <= n:
+            dfs(to_close - 1, to_open, res, path + ')', n)
+
+
+def my_approach(n):
+    res = []
+    dfs(0, n, res, '', n)
+    print(res)
+
+
 class Solution:
     def dfs(self, need_open, need_close, res, path, n):
         if need_close == 0 and need_open == 0:
@@ -29,5 +46,6 @@ class Solution:
         print(res)
 
 
-so = Solution()
-so.generateParenthesis(3)
+# so = Solution()
+# so.generateParenthesis(3)
+my_approach(3)
